@@ -81,26 +81,6 @@ private:
 		s = nullptr;
 	}
 
-	void printHelper(NodePtr root, string indent, bool last) {
-		// in cây ra màn hình 
-		if (root != nullptr) {
-			cout << indent;
-			if (last) {
-				cout << "└────";
-				indent += "     ";
-			}
-			else {
-				cout << "├────";
-				indent += "|    ";
-			}
-
-			cout << root->data << endl;
-
-			printHelper(root->left, indent, false);
-			printHelper(root->right, indent, true);
-		}
-	}
-
 	// xoay trái tại x
 	void leftRotate(NodePtr x) {
 		NodePtr y = x->right;
@@ -303,11 +283,6 @@ public:
 	// xóa node 
 	void deleteNode(int data) {
 		deleteNodeHelper(this->root, data);
-	}
-
-	// in cây lên màn hình
-	void prettyPrint() {
-		printHelper(this->root, "", true);
 	}
 
 };
