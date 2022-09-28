@@ -333,6 +333,6 @@ int main() {
 	bst.deleteNode(1);
 	bst.deleteNode(44);
 	bst.deleteNode(33);
-	bst.prettyPrint();
+	bst.splaytreePrint();
 	return 0;
 }
