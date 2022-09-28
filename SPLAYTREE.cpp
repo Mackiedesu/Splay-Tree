@@ -80,6 +80,25 @@ private:
 		delete(s);
 		s = nullptr;
 	}
+	
+	void printHelper(NodePtr root, string indent, bool last) {
+		// print the tree structure on the screen
+	   	if (root != nullptr) {
+		   cout<<indent;
+		   if (last) {
+		      cout<<"└────";
+		      indent += "     ";
+		   } else {
+		      cout<<"├────";
+		      indent += "|    ";
+		   }
+
+		   cout<<root->data<<endl;
+
+		   printHelper(root->left, indent, false);
+		   printHelper(root->right, indent, true);
+		}
+	}
 
 	// xoay trái tại x
 	void leftRotate(NodePtr x) {
@@ -284,6 +303,10 @@ public:
 	void deleteNode(int data) {
 		deleteNodeHelper(this->root, data);
 	}
+	
+	void splaytreePrint() {
+		printHelper(this->root, "", true);
+	}
 
 };
 
@@ -297,15 +320,15 @@ int main() {
 	bst.insert(41);
 	bst.insert(98);
 	bst.insert(1);
-	bst.prettyPrint();
+	bst.splaytreePrint();
 	bst.searchTree(33);
 	bst.searchTree(44);
-	bst.prettyPrint();
+	bst.splaytreePrint();
 	bst.deleteNode(89);
 	bst.deleteNode(67);
 	bst.deleteNode(41);
 	bst.deleteNode(5);
-	bst.prettyPrint();
+	bst.splaytreePrint();
 	bst.deleteNode(98);
 	bst.deleteNode(1);
 	bst.deleteNode(44);
