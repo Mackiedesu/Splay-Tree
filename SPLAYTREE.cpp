@@ -178,6 +178,37 @@ private:
 			}
 		}
 	}
+	
+	// joins two trees s and t
+	NodePtr join(NodePtr s, NodePtr t){
+		if (!s) {
+			return t;
+		}
+
+		if (!t) {
+			return s;
+		}
+		NodePtr x = maximum(s);
+		splay(x);
+		x->right = t;
+		t->parent = x;
+		return x;
+	}
+
+	// splits the tree into s and t
+	void split(NodePtr &x, NodePtr &s, NodePtr &t) {
+		splay(x);
+		if (x->right) {
+			t = x->right;
+			t->parent = nullptr;
+		} else {
+			t = nullptr;
+		}
+		s = x;
+		s->right = nullptr;
+		x = nullptr;
+	} 
+
 
 
 public:
@@ -226,41 +257,6 @@ public:
 			node = node->right;
 		}
 		return node;
-	}
-
-	// tìm successor của node
-	NodePtr successor(NodePtr x) {
-		// nếu subtree phải khác null,
-		// the successor là node bên trái cùng của subtree phải
-		if (x->right != nullptr) {
-			return minimum(x->right);
-		}
-
-		// else successor là grandparent node của x
-    // sao cho cha của x là node con bên trái của nó
-		NodePtr y = x->parent;
-		while (y != nullptr && x == y->right) {
-			x = y;
-			y = y->parent;
-		}
-		return y;
-	}
-
-	// tìm predecessor của node
-	NodePtr predecessor(NodePtr x) {
-		// nếu subtree trái khác null,
-		// the successor là node bên phải cùng của subtree trái
-		if (x->left != nullptr) {
-			return maximum(x->left);
-		}
-
-		NodePtr y = x->parent;
-		while (y != nullptr && x == y->left) {
-			x = y;
-			y = y->parent;
-		}
-
-		return y;
 	}
 
 	// insert khóa vào cây theo đúng vị trí
