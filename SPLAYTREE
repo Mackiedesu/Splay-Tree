@@ -179,36 +179,6 @@ private:
 		}
 	}
 
-	// nhập 2 cây lại 
-	NodePtr join(NodePtr s, NodePtr t) {
-		if (!s) {
-			return t;
-		}
-
-		if (!t) {
-			return s;
-		}
-		NodePtr x = maximum(s);
-		splay(x);
-		x->right = t;
-		t->parent = x;
-		return x;
-	}
-
-	// tách 2 cây
-	void split(NodePtr& x, NodePtr& s, NodePtr& t) {
-		splay(x);
-		if (x->right) {
-			t = x->right;
-			t->parent = nullptr;
-		}
-		else {
-			t = nullptr;
-		}
-		s = x;
-		s->right = nullptr;
-		x = nullptr;
-	}
 
 public:
 	SplayTree() {
