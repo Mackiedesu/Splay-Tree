@@ -52,54 +52,6 @@ private:
 		return searchTreeHelper(node->right, key);
 	}
 
-	void deleteNodeHelper(NodePtr node, int key) {
-		NodePtr x = nullptr;
-		NodePtr t, s;
-		while (node != nullptr) {
-			if (node->data == key) {
-				x = node;
-			}
-
-			if (node->data <= key) {
-				node = node->right;
-			}
-			else {
-				node = node->left;
-			}
-		}
-
-		if (x == nullptr) {
-			cout << "Couldn't find key in the tree" << endl;
-			return;
-		}
-		split(x, s, t); // chia cây
-		if (s->left) { // xóa x
-			s->left->parent = nullptr;
-		}
-		root = join(s->left, t);
-		delete(s);
-		s = nullptr;
-	}
-	
-	void printHelper(NodePtr root, string indent, bool last) {
-		// print the tree structure on the screen
-	   	if (root != nullptr) {
-		   cout<<indent;
-		   if (last) {
-		      cout<<"└────";
-		      indent += "     ";
-		   } else {
-		      cout<<"├────";
-		      indent += "|    ";
-		   }
-
-		   cout<<root->data<<endl;
-
-		   printHelper(root->left, indent, false);
-		   printHelper(root->right, indent, true);
-		}
-	}
-
 	// xoay trái tại x
 	void leftRotate(NodePtr x) {
 		NodePtr y = x->right;
@@ -208,7 +160,53 @@ private:
 		x = nullptr;
 	} 
 
+	void deleteNodeHelper(NodePtr node, int key) {
+		NodePtr x = nullptr;
+		NodePtr t, s;
+		while (node != nullptr) {
+			if (node->data == key) {
+				x = node;
+			}
 
+			if (node->data <= key) {
+				node = node->right;
+			}
+			else {
+				node = node->left;
+			}
+		}
+
+		if (x == nullptr) {
+			cout << "Couldn't find key in the tree" << endl;
+			return;
+		}
+		split(x, s, t); // chia cây
+		if (s->left) { // xóa x
+			s->left->parent = nullptr;
+		}
+		root = join(s->left, t);
+		delete(s);
+		s = nullptr;
+	}
+	
+	void printHelper(NodePtr root, string indent, bool last) {
+		// print the tree structure on the screen
+	   	if (root != nullptr) {
+		   cout<<indent;
+		   if (last) {
+		      cout<<"└────";
+		      indent += "     ";
+		   } else {
+		      cout<<"├────";
+		      indent += "|    ";
+		   }
+
+		   cout<<root->data<<endl;
+
+		   printHelper(root->left, indent, false);
+		   printHelper(root->right, indent, true);
+		}
+	}
 
 public:
 	SplayTree() {
